@@ -1,9 +1,7 @@
-package com.fastcampus.springboottoyboard.repository;
+package com.fastcampus.springboottoyboard.jpa_repository;
 
 import com.fastcampus.springboottoyboard.config.JpaConfig;
 import com.fastcampus.springboottoyboard.domain.Article;
-import com.fastcampus.springboottoyboard.repository.ArticleCommentRepository;
-import com.fastcampus.springboottoyboard.repository.ArticleRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("testdb")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

@@ -31,7 +31,6 @@ public class ArticleComment {
     // 이런 식으로 조인 테이블을 구성 할 수도 있다.
     // @Setter private Long articleId;
 
-
     @Setter
     @ManyToOne(optional = false)
     private Article article;

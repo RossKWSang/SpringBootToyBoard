@@ -1,4 +1,4 @@
-package com.fastcampus.springboottoyboard.repository;
+package com.fastcampus.springboottoyboard.jpa_repository;
 
 import com.fastcampus.springboottoyboard.domain.ArticleComment;
 import org.springframework.data.jpa.repository.JpaRepository;
