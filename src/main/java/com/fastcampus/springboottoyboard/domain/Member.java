@@ -23,9 +23,9 @@ public class Member {
     @Column(name="email", nullable=false, length=50)
     private String email;
 
-    @OneToMany(mappedBy="cart")
+    @OneToMany(mappedBy="member")
     private List<Cart> cartList = new ArrayList<>();
 
-    @OneToMany(mappedBy="membership")
+    @OneToMany(mappedBy="member")
     private List<Membership> membershipList = new ArrayList<>();
 }
