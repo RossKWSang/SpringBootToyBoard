@@ -19,13 +19,13 @@ public class JdbcProductRepository {
     DataSource ds;
 
     public List<ProductJoinResult> getAll() {
-        return loadProducts("SELECT * "
-                + "FROM PRODUCT p "
-                + "INNER JOIN CART c ON p.ID = c.PRODUCT_ID "
-                + "INNER JOIN MEMBER m ON c.PRODUCT_ID = m.ID "
-                + "INNER JOIN MEMBERSHIP ms ON m.ID = ms.MEMBER_ID "
-                + "INNER JOIN SHIP s ON ms.SHIP_ID = s.ID "
-                + "ORDER BY ms.LEVEL, p.NAME"
+        return loadProducts("SELECT p.name, c.member_id, ms.level, s.nationality "
+                + "FROM data_test.product p "
+                + "LEFT JOIN data_test.cart c ON p.id = c.product_id "
+                + "LEFT JOIN data_test.member m ON c.product_id = m.id "
+                + "LEFT JOIN data_test.membership ms ON m.id = ms.member_id "
+                + "LEFT JOIN data_test.ship s ON ms.ship_id = s.id "
+                + "ORDER BY ms.level, p.name"
         );
     }
 
@@ -38,12 +38,10 @@ public class JdbcProductRepository {
             List<ProductJoinResult> l = new LinkedList<>();
             while (rs.next()) {
                 ProductJoinResult joinResult = new ProductJoinResult(
+                        rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
-                        null,
-                        null
-                //        rs.getString(13),
-                //        rs.getString(17)
+                        rs.getString(4)
                 );
                 l.add(joinResult);
             }

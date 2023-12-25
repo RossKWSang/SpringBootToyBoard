@@ -1,23 +1,48 @@
-server:
-  port: 8080 # 내장 톰캣 포트번호
-
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    # url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
-    url: 'jdbc:h2:~/test;DB_CLOSE_ON_EXIT=FALSE'    # H2 DB 연결 주소 (Embedded Mode)
-    username: username        # H2 DB 접속 ID (사용자 지정)
-    password: password        # H2 DB 접속 PW (사용자 지정)
+    url: jdbc:mysql://localhost:3306/data_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${LOCAL_DB_HOST}
+    password: ${LOCAL_DB_PASSWORD}
 
-  h2:
-    console: # H2 DB를 웹에서 관리할 수 있는 기능
-      enabled: true           # H2 Console 사용 여부
-      path: /h2-console       # H2 Console 접속 주소
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        #        show-sql: true
+        format_sql: true
 
+#  redis:
+#    host: localhost
+#    port: 6379
+
+logging.level:
+  org.hibernate.SQL: debug
+  #  org.hibernate.type: trace
+  org.springframework.security: debug
+
+#server:
+#  port: 8080 # 내장 톰캣 포트번호
+#
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    # url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
+#    url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode)
+#    username: username        # H2 DB 접속 ID (사용자 지정)
+#    password: password        # H2 DB 접속 PW (사용자 지정)
+#
+#  h2:
+#    console: # H2 DB를 웹에서 관리할 수 있는 기능
+#      enabled: true           # H2 Console 사용 여부
+#      path: /h2-console       # H2 Console 접속 주소
+#
 #  jpa:
 #    database-platform: org.hibernate.dialect.H2Dialect
 #    hibernate:
-#      ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
+#      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
 #    properties:
 #      hibernate:
 #        dialect: org.hibernate.dialect.H2Dialect

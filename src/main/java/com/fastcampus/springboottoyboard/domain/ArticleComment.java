@@ -21,7 +21,7 @@ import java.util.Objects;
         @Index(columnList = "createdBy")
 })
 @EntityListeners(AuditingEntityListener.class)
-@Entity
+@Entity(name="article_comment")
 public class ArticleComment {
 
     @Id
