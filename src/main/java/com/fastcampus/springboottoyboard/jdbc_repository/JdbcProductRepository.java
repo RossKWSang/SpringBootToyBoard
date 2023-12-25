@@ -1,6 +1,6 @@
 package com.fastcampus.springboottoyboard.jdbc_repository;
 
-import com.fastcampus.springboottoyboard.domain.Product;
+import com.fastcampus.springboottoyboard.dto.ProductJoinResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ public class JdbcProductRepository {
     @Autowired
     DataSource ds;
 
-    public List<Product> getAll() throws SQLException {
+    public List<ProductJoinResult> getAll() throws SQLException {
         return loadProducts("SELECT *"
                 + "FROM PRODUCT p "
                 + "LEFT JOIN CART c ON p.ID = c.PRODUCT_ID "
@@ -28,20 +28,22 @@ public class JdbcProductRepository {
                 + "ORDER BY ms.LEVEL, p.name");
     }
 
-    List<Product> loadProducts(String sql) throws SQLException {
+    List<ProductJoinResult> loadProducts(String sql) throws SQLException {
         try (
                 Connection con = ds.getConnection();
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql)
         ) {
-            List<Product> l = new LinkedList<>();
+            List<ProductJoinResult> l = new LinkedList<>();
             rs.setFetchSize(10000);
             while (rs.next()) {
-                Product p = new Product(rs.getString(1), rs.getString(2));
-                Cart c = new Cart(rs.getInt(4), rs.getString(5));
-                c.getFilms().add(a);
-                a.getCategories().add(new Category(rs.getInt(6), rs.getString(7)));
-                l.add(c);
+                ProductJoinResult joinResult = new ProductJoinResult(
+                        rs.getString(1),
+                        rs.getInt(2),
+                        rs.getString(12),
+                        rs.getString(16)
+                );
+                l.add(joinResult);
             }
             return l;
         }
