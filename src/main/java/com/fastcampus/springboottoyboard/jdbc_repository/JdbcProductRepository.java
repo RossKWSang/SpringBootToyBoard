@@ -18,35 +18,40 @@ public class JdbcProductRepository {
     @Autowired
     DataSource ds;
 
-    public List<ProductJoinResult> getAll() throws SQLException {
-        return loadProducts("SELECT *"
+    public List<ProductJoinResult> getAll() {
+        return loadProducts("SELECT * "
                 + "FROM PRODUCT p "
-                + "LEFT JOIN CART c ON p.ID = c.PRODUCT_ID "
-                + "LEFT JOIN MEMBER m ON c.PRODUCT_ID = m.ID "
-                + "LEFT JOIN MEMBERSHIP ms ON m.ID = ms.MEMBER_ID "
-                + "LEFT JOIN SHIP s ON ms.SHIP_ID = s.ID "
-                + "ORDER BY ms.LEVEL, p.name");
+                + "INNER JOIN CART c ON p.ID = c.PRODUCT_ID "
+                + "INNER JOIN MEMBER m ON c.PRODUCT_ID = m.ID "
+                + "INNER JOIN MEMBERSHIP ms ON m.ID = ms.MEMBER_ID "
+                + "INNER JOIN SHIP s ON ms.SHIP_ID = s.ID "
+                + "ORDER BY ms.LEVEL, p.NAME"
+        );
     }
 
-    List<ProductJoinResult> loadProducts(String sql) throws SQLException {
+    List<ProductJoinResult> loadProducts(String sql) {
         try (
                 Connection con = ds.getConnection();
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(sql)
         ) {
             List<ProductJoinResult> l = new LinkedList<>();
-            rs.setFetchSize(10000);
             while (rs.next()) {
                 ProductJoinResult joinResult = new ProductJoinResult(
-                        rs.getString(1),
-                        rs.getInt(2),
-                        rs.getString(12),
-                        rs.getString(16)
+                        rs.getString(2),
+                        rs.getString(3),
+                        null,
+                        null
+                //        rs.getString(13),
+                //        rs.getString(17)
                 );
                 l.add(joinResult);
             }
             return l;
         }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to fetch data from the database", e);
+        }
     }
-
 }

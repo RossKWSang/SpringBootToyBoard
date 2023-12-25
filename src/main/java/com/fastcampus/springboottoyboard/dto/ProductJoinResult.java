@@ -2,12 +2,12 @@ package com.fastcampus.springboottoyboard.dto;
 
 public class ProductJoinResult {
     private String productName;
-    private int memberId;
+    private String memberId;
     private String membershipLevel;
     private String shipNationality;
     public ProductJoinResult(
             String productName,
-            int memberId,
+            String memberId,
             String membershipLevel,
             String shipNationality
     ) {
