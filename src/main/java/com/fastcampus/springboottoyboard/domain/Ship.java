@@ -1,7 +1,6 @@
 package com.fastcampus.springboottoyboard.domain;
 
 import lombok.Getter;
-tus
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

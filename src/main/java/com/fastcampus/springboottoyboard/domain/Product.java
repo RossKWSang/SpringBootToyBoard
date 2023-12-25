@@ -18,8 +18,15 @@ public class Product {
     private String name;
 
     @Column(name="price", nullable=false)
-    private Integer price;
+    private String price;
 
     @OneToMany(mappedBy="product")
     private List<Cart> cartList = new ArrayList<>();
+
+    public Product() {}
+
+    public Product(String name, String price) {
+        this.name = name;
+        this.price = price;
+    }
 }
