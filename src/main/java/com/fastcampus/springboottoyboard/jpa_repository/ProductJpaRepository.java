@@ -14,12 +14,9 @@ import java.util.List;
 
 @Repository
 public class ProductJpaRepository {
-
     @PersistenceContext
     private EntityManager entityManager;
-
     private final JPAQueryFactory queryFactory;
-
     public ProductJpaRepository(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
@@ -34,7 +31,6 @@ public class ProductJpaRepository {
                 "LEFT JOIN data_test.ship s ON ms.ship_id = s.id " +
                 "ORDER BY ms.level, p.name";
 
-        List results = entityManager.createNativeQuery(nativeQuery).getResultList();
-        return results;
+        return entityManager.createNativeQuery(nativeQuery).getResultList();
     }
 }
