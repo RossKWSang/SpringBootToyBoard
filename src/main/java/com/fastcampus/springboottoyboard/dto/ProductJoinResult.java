@@ -6,6 +6,7 @@ public class ProductJoinResult {
     private String membershipLevel;
     private String shipNationality;
     public ProductJoinResult(
+
             String productName,
             String memberId,
             String membershipLevel,
