@@ -1,28 +1,21 @@
-server:
-  port: 8080 # 내장 톰캣 포트번호
-
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    # url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
-    url: 'jdbc:h2:~/test;DB_CLOSE_ON_EXIT=FALSE'    # H2 DB 연결 주소 (Embedded Mode)
-    username: username        # H2 DB 접속 ID (사용자 지정)
-    password: password        # H2 DB 접속 PW (사용자 지정)
+    url: jdbc:mysql://localhost:3306/data_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${LOCAL_DB_HOST}
+    password: ${LOCAL_DB_PASSWORD}
 
-  h2:
-    console: # H2 DB를 웹에서 관리할 수 있는 기능
-      enabled: true           # H2 Console 사용 여부
-      path: /h2-console       # H2 Console 접속 주소
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
 
-#  jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
-#    hibernate:
-#      ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.H2Dialect
-#        format_sql: true      # 쿼리 로그 포맷 (정렬)
-#        show_sql: true        # 쿼리 로그 출력
+logging.level:
+  org.hibernate.SQL: debug
+  org.springframework.security: debug
 
 thymeleaf:
   cache: false
@@ -30,50 +23,3 @@ thymeleaf:
   prefix: classpath:/templates/
   suffix: .html
   enabled: true
-
-#debug: false
-#management.endpoint.web.exposure.include: "*"
-#
-#logging:
-#  level:
-#    com.fastcampus.springboottoyboard: debug
-#    org.springframework.web.servlet: debug
-#    org.hibernate.type.descriptor.sql.BasicBinder: trace
-#
-#spring:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/board
-#    username: ross
-#    password: rosskysoss1234!
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#  jpa:
-#    defer-datasource-initialization: true
-#    hibernate:
-#      ddl-auto: create
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
-#        default_batch_fetch_size: 100
-#  h2:
-#    console:
-#      enabled: false
-#  sql:
-#    init:
-#      mode: always
-#  data:
-#    rest:
-#      base-path: /api
-#      detection-strategy: annotated
-
----
-
-#spring:
-#  config:
-#    activate:
-#      on-profile: testdb
-#  datasource:
-#    url: jdbc:h2:mem:board;mode=mysql
-#    driver-class-name: org.h2.Driver
-#  sql.init.mode: always
-#  test.database.replace: none
