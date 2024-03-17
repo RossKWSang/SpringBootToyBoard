@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
 
 @Slf4j
 @Getter
@@ -19,7 +18,6 @@ import java.time.ZonedDateTime;
 @Table(name = "partners")
 public class Partner extends AbstractEntity {
     private static final String PREFIX_PARTNER = "ptn_";
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

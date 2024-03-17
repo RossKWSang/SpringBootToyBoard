@@ -1,5 +1,6 @@
-package com.fastcampus.springboottoyboard.domain.partner;
+package com.fastcampus.springboottoyboard.domain.partner.info;
 
+import com.fastcampus.springboottoyboard.domain.partner.Partner;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -2,7 +2,7 @@ package com.fastcampus.springboottoyboard.interfaces.partner;
 
 import com.fastcampus.springboottoyboard.domain.partner.Partner;
 import com.fastcampus.springboottoyboard.domain.partner.PartnerCommand;
-import com.fastcampus.springboottoyboard.domain.partner.PartnerInfo;
+import com.fastcampus.springboottoyboard.domain.partner.info.PartnerInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
