@@ -1,9 +1,14 @@
 package com.fastcampus.springboottoyboard.domain.partner;
 
+import com.fastcampus.springboottoyboard.domain.partner.info.PartnerCacheInfo;
+import com.fastcampus.springboottoyboard.domain.partner.info.PartnerInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -44,5 +49,15 @@ public class PartnerServiceImpl implements PartnerService{
         Partner partner = partnerReader.getPartner(partnerToken);
         partner.disable();
         return new PartnerInfo(partner);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "partners")
+    public List<PartnerCacheInfo> getAllPartnerCacheInfos() {
+        List<Partner> partners = partnerReader.getAllPartners();
+        return partners.stream()
+                .map(PartnerCacheInfo::new)
+                .toList();
     }
 }
