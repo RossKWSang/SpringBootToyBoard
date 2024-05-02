@@ -1,15 +1,25 @@
 package com.fastcampus.springboottoyboard.order;
 
 import com.fastcampus.springboottoyboard.discount.DiscountPolicy;
-import com.fastcampus.springboottoyboard.discount.FixDiscountPolicy;
 import com.fastcampus.springboottoyboard.member.Member;
 import com.fastcampus.springboottoyboard.member.MemberRepository;
-import com.fastcampus.springboottoyboard.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+    // private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+    // OCP, DIP 위반 사례
+    // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+    // private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
+
+    // 철저하게 인터페이스에만 의존한다 -> OCP, DIP 준수 사례
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
