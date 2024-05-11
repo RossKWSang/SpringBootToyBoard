@@ -13,6 +13,8 @@ public class BeanDefinitionTest {
     @Test
     @DisplayName("빈 실행 메타정보 확인")
     void findApplicationBean() {
+
+        // Bean Definition을 실제로 쓸일이 별로 없다.
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
         for (String beanDefinitionName : beanDefinitionNames) {
             BeanDefinition beanDefinition = ac.getBeanDefinition(beanDefinitionName);
