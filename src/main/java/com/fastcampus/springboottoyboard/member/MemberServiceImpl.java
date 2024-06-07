@@ -1,5 +1,9 @@
 package com.fastcampus.springboottoyboard.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService {
 
     // 이 부분이 문제가 된다.
@@ -8,6 +12,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
+    @Autowired // 스프링은 자동으로 의존관계를 지니는 컴포넌트를 불러온다. @Component와 쌍으로 사용
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
@@ -20,5 +25,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId);
+    }
+
+    // 테스트 용
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
     }
 }

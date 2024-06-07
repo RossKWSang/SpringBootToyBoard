@@ -3,7 +3,10 @@ package com.fastcampus.springboottoyboard.order;
 import com.fastcampus.springboottoyboard.discount.DiscountPolicy;
 import com.fastcampus.springboottoyboard.member.Member;
 import com.fastcampus.springboottoyboard.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
     // private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -16,6 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
@@ -30,4 +34,9 @@ public class OrderServiceImpl implements OrderService {
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
+
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
+
 }

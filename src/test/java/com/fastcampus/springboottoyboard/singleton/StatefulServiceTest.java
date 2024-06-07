@@ -1,6 +1,7 @@
 package com.fastcampus.springboottoyboard.singleton;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 class StatefulServiceTest {
 
     @Test
+    @DisplayName("싱글톤 패턴은 Stateless하게 설계되어야함")
     void statefulServiceSingleton() {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(TestConfig.class);
 
@@ -22,17 +24,18 @@ class StatefulServiceTest {
         // statefulService2.order("userB", 20000);
 
         // 실무에서 이런 장애는 잡기도 어렵다 ...
-        int price1 = statefulService1.getPrice();
-        System.out.println("price = " + price1);
+        // System.out.println("price = " + price1);
 
-        Assertions.assertThat(statefulService1.getPrice()).isEqualTo(20000);
+        Assertions.assertThat(statefulService1.order(10000)).isEqualTo(10000);
     }
 
     static class TestConfig {
+
         @Bean
         public StatefulService statefulService() {
             return new StatefulService();
         }
+
     }
 
 }
