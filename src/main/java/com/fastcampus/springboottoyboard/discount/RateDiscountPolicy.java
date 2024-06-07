@@ -2,7 +2,9 @@ package com.fastcampus.springboottoyboard.discount;
 
 import com.fastcampus.springboottoyboard.member.Grade;
 import com.fastcampus.springboottoyboard.member.Member;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPercent = 10; //10% 할인
